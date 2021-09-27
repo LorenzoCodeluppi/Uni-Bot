@@ -1,0 +1,20 @@
+{
+  "name": "Bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "form-data": "^4.0.0",
+    "fs-extra": "^10.0.0",
+    "node-fetch": "^2.6.2",
+    "puppeteer": "^10.2.0"
+  }
+}
