@@ -1,23 +1,43 @@
 # Unimore-Bot
 
-Bot che permette di prenotare l'aula in modo programmatico.
+Bot sviluppato in Node.js che permette la prenotazione e il successivo invio dello screenshot di quest'ultima tramite un bot di telegram
+
+## Indice
+
+- [Unimore-Bot](#unimore-bot)
+  * [Prequisiti](#prequisiti)
+    + [Node.js](#nodejs)
+    + [Requisiti della macchina](#requisiti-della-macchina)
+  * [Configurazione:](#configurazione-)
+    + [BOT_TOKEN](#bot-token)
+    + [Orario](#orario)
+    + [Viewport](#viewport)
+    + [Config](#config)
+    + [Users](#users)
+      - [Credentials](#credentials)
+      - [SP](#sp)
+  * [Avvio del bot](#avvio-del-bot)
+    + [Installazione dei node modules](#installazione-dei-node-modules)
+  * [Green pass (facoltativo)](#green-pass--facoltativo-)
+    + [Avvio e terminazione del bot con pm2](#avvio-e-terminazione-del-bot-con-pm2)
+    + [Avvio del bot in modalità _development_](#avvio-del-bot-in-modalit---development-)
 
 ## Prequisiti
 
-### Node.js:
-Node.js è un runtime system open source, compatibile con MacOS, linux e windows, per maggiori informazioni 
+### Node.js
+Node.js è un runtime system open source, compatibile con MacOS, linux e windows, per maggiori informazioni
 visitare questo [link](https://it.wikipedia.org/wiki/Node.js).  
 Per installare Node.js sulla propria macchina si può procedere scaricando il pacchetto dal sito ufficiale ([link](https://nodejs.org/en/))
-oppure tramite NVM(Node Version Manager), al seguente [link](https://github.com/nvm-sh/nvm#installing-and-updating).  
+oppure tramite NVM(Node Version Manager), al seguente [link](https://github.com/nvm-sh/nvm#installing-and-updating).
 
-> **N.B**: si consiglia di utilizzare la versione 15.14.0 di Node.js sulla quale è stata sviluppato e testato l'applicativo, 
+> **N.B**: si consiglia di utilizzare la versione 15.14.0 di Node.js sulla quale è stata sviluppato e testato l'applicativo,
 > e di conseguenza di utilizzare NVM per l'installazione
 
 ### Requisiti della macchina
-Non sono richiesti alcuni requisiti di hardware, ma affinché il Bot prenoti in automatico l'aula desiderata è fortemente consigliato un 
+Non sono richiesti alcuni requisiti di hardware, ma affinché il Bot prenoti in automatico l'aula desiderata è fortemente consigliato un
 dispositivo che rimanga acceso 24/7.  
 Si possono utilizzare dei siti di [Hosting](https://it.wikipedia.org/wiki/Hosting) online,
-come ad esempio [AWS](https://aws.amazon.com/), [Azure](https://azure.microsoft.com/it-it/), [Heroku](https://www.heroku.com/), etc... 
+come ad esempio [AWS](https://aws.amazon.com/), [Azure](https://azure.microsoft.com/it-it/), [Heroku](https://www.heroku.com/), etc...
 
 
 ## Configurazione:
@@ -80,20 +100,20 @@ Nella chiave `BOT_TOKEN` va specificato come **stringa**(tra virgolette) il toke
 
 ### Orario
 Nella chiave `orario` va specificato l'ora e i minuti in cui il bot in automatico andrà ad attivarsi.<br/> Questo dato è una **stringa** ed esiste un formato da rispettare chiamato _Cron time string format_, vi lasciamo un
-[link](https://support.acquia.com/hc/en-us/articles/360004224494-Cron-time-string-format) in cui è spiegato l'utilizzo e nel quale vi sono alcuni esempi.  
+[link](https://support.acquia.com/hc/en-us/articles/360004224494-Cron-time-string-format) in cui è spiegato l'utilizzo e nel quale vi sono alcuni esempi.
 
 > **N.B** la chiave deve essere presente nell'oggetto di configurazione e deve essere specificato un valore corretto
 
 ### Viewport
 La proprietà `viewport` va compilata con **un oggetto** nel quale siano presenti le chiavi `width` e `height`, ciascuna di esse deve essere di **tipo numerico**.  
 Tramite `width` (larghezza) e `height` (altezza) si andranno a settare le dimensioni della pagina del browser e di conseguenza dello screenshot della prenotazione.
- 
+
 > **N.B** la chiave deve essere presente nell'oggetto di configurazione e deve essere specificato un valore corretto
 
 ### Config
 La chiave `config` va compilata come **oggetto**.<br/>
 Può essere lasciata come oggetto vuoto `{}` in tal caso si useranno le configurazioni di default.<br/>
-L'unica chiave che consigliamo di specificare è `headless` che assume valori **booleani** (`true` o `false`) e determina la apertura programmatica di un browser in modalità background o meno;<br/> 
+L'unica chiave che consigliamo di specificare è `headless` che assume valori **booleani** (`true` o `false`) e determina la apertura programmatica di un browser in modalità background o meno;<br/>
 La configurazione consigliata per la chiave `config` nel caso in cui si utilizzi un Raspberry py è la seguente:
 ```json lines 
 "config": {
@@ -103,7 +123,7 @@ La configurazione consigliata per la chiave `config` nel caso in cui si utilizzi
 } 
 ```
 
-> **N.B** la chiave deve essere presente nell'oggetto ma può essere compilata come oggetto vuoto. 
+> **N.B** la chiave deve essere presente nell'oggetto ma può essere compilata come oggetto vuoto.
 > Per maggiori informazioni sugli argomenti che è possibile passare nella chiave `args` è possibile trovare la documentazione ufficiale in questo [link](https://pptr.dev/#?product=Puppeteer&version=v10.2.0&show=api-class-puppeteer)
 
 ### Users
@@ -138,7 +158,7 @@ Nel caso nell'arco di una giornata sia necessario prenotare più di un'aula, ins
 ### Installazione dei node modules
 Per installare i node modules scrivere il comando `npm i`
 
-> **N.B** Assicurarsi d'installare il modulo **pm2** globalmente tramite il comando `npm i -g pm2`. 
+> **N.B** Assicurarsi d'installare il modulo **pm2** globalmente tramite il comando `npm i -g pm2`.
 
 ## Green pass (facoltativo)
 Nella cartella `photos` è possibile inserire una foto in formato **jpeg** del proprio green pass.<br/>
@@ -155,5 +175,5 @@ Per avviare il bot usare il comando `npm start`
 Per stoppare il bot avviato con _pm2_ utilizzare il comando da terminale `npm stop`
 
 ### Avvio del bot in modalità _development_
-Per avviare il bot in modalità _development_ utilizzare il comando da terminale `npm dev`.<br/>Questa modalità vi permetterà di avviare una sola volta il bot, 
+Per avviare il bot in modalità _development_ utilizzare il comando da terminale `npm run dev`.<br/>Questa modalità vi permetterà di avviare una sola volta il bot,
 il quale al termine dei processi si stopperà da solo
