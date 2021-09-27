@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer")
 const cron = require("node-cron")
+const { ensureDirSync } = require("fs-extra")
 
 const { days, users, BOT_TOKEN, config, viewport, orario, logger } = require("./utils/assets")
 const { sendMessage, sendError } = require("./utils/telegram-utils")
@@ -52,8 +53,10 @@ const reserve = async({ user, classes }) => {
       throw new Error(popUpError)
     }
 
+
     await page.click("#app_pagecontent > form > div > div > p:nth-child(1) > button:nth-child(1)")
     await page.waitForTimeout(2000)
+    ensureDirSync("./photos/")
     await page.screenshot({ path: `./photos/img-${tg_username}.jpeg`, fullPage: true })
 
     await sendMessage(tg_username, BOT_TOKEN)
@@ -61,6 +64,7 @@ const reserve = async({ user, classes }) => {
   } catch (err) {
     logger(err)
   }
+
   await browser.close()
 }
 

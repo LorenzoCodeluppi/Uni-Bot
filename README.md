@@ -92,7 +92,7 @@ Tramite `width` (larghezza) e `height` (altezza) si andranno a settare le dimens
 
 ### Config
 La chiave `config` va compilata come **oggetto**.<br/>
-Può essere lasciata come oggetto vuoto `{}` in tal caso si userrano le configurazioni di default.<br/>
+Può essere lasciata come oggetto vuoto `{}` in tal caso si useranno le configurazioni di default.<br/>
 L'unica chiave che consigliamo di specificare è `headless` che assume valori **booleani** (`true` o `false`) e determina la apertura programmatica di un browser in modalità background o meno;<br/> 
 La configurazione consigliata per la chiave `config` nel caso in cui si utilizzi un Raspberry py è la seguente:
 ```json lines 
@@ -113,7 +113,7 @@ Il programma prenoterà l'aula per ciascuno degli utenti configurati nel file.<b
 Ogni utente viene definito da un identificativo non rilevante ai fini dell'esecuzione (`user1`), questo identificativo è anche la chiave che contiene tutte le informazioni di un utente.<br/>
 > **N.B** la chiave deve essere presente nell'oggetto di configurazione e deve essere specificato un valore corretto
 
-### Credentials
+#### Credentials
 La chiave `credentials` va compilata come **oggetto**.<br/>
 Al suo interno vanno inserite le chiavi:<br/>
 `username` il nome utente di ESSE3.<br/>
@@ -121,38 +121,38 @@ Al suo interno vanno inserite le chiavi:<br/>
 `tg_username` username di telegram per permette al bot di inviarvi un messaggio.<br/>
 > **N.B** lo username di telegram va inserito senza mettere la @.
 
-### SP
+#### SP
 Ogni aula del nostro dipartimento viene codificata da un codice **sp**.<br/>
-I codici corrispondono ad un aula e ad un determinato orario.<br/>
+I codici corrispondono a un'aula e a un determinato orario.<br/>
 Questo codice viene inserito alla fine dell'url seguendo lo schema sotto riportato:<br/>
 (https://presenze.unimore.it/spacemr/#?page=s__prsncdd&sp= (CODICE DA COPIARE))<br/>
-  Bisogna inserire questo codice in formato **stringa**.<br/>
-  Nel caso nell'arco di una giornata sia necessario prenotare più di un'aula, inserisci i codici come segue:<br/>
-  ```json lines 
-  "Monday": ["1", "2"]
-  ```
+Bisogna inserire questo codice in formato **stringa**.<br/>
+Nel caso nell'arco di una giornata sia necessario prenotare più di un'aula, inserisci i codici come segue:<br/>
+```json lines 
+"Monday": ["1", "2"]
+```
 > **N.B** nel caso un giorno non si voglia prenotare nessuna aula, lasciare il campo `sp` vuoto.
 
 ## Avvio del bot
 
 ### Installazione dei node modules
- Per installare i node modules scrivere il comando `npm i`
+Per installare i node modules scrivere il comando `npm i`
 
-> **N.B** Assicurarsi di installare il modulo **pm2** globalmente tramite il comando `npm i -g pm2`. 
+> **N.B** Assicurarsi d'installare il modulo **pm2** globalmente tramite il comando `npm i -g pm2`. 
 
 ## Green pass (facoltativo)
- Nella cartella `photos` è possibile inserire una foto in formato **jpeg** del proprio green pass.<br/>
+Nella cartella `photos` è possibile inserire una foto in formato **jpeg** del proprio green pass.<br/>
 
- Il bot di telegram provvederà a inviarlo assieme allo screenshot della prenotazione.<br/>
+Il bot di telegram provvederà a inviarlo assieme allo screenshot della prenotazione.<br/>
 
- Salvare la foto come segue: `pass-(tg_username).jpeg`.<br/>
+Salvare la foto come segue: `pass-(tg_username).jpeg`.<br/>
 
 > **N.B** questo punto è facoltativo e non inciderà sull'esecuzione del programma.
 
 ### Avvio e terminazione del bot con pm2
 Per avviare il bot usare il comando `npm start`
 
- Per stoppare il bot avviato con _pm2_ utilizzare il comando da terminale `npm stop`
+Per stoppare il bot avviato con _pm2_ utilizzare il comando da terminale `npm stop`
 
 ### Avvio del bot in modalità _development_
 Per avviare il bot in modalità _development_ utilizzare il comando da terminale `npm dev`.<br/>Questa modalità vi permetterà di avviare una sola volta il bot, 
