@@ -4,17 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ."
+    "postinstall": "node node_modules/puppeteer/install.js",
+    "start": "pm2 start index.js --name Uni-Bot",
+    "stop": "npx pm2 stop Uni-Bot",
+    "dev": "NODE_ENV=dev node ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0",
     "form-data": "^4.0.0",
     "fs-extra": "^10.0.0",
+    "node-cron": "^3.0.0",
     "node-fetch": "^2.6.2",
+    "pm2": "^5.1.1",
     "puppeteer": "^10.2.0"
   }
 }
