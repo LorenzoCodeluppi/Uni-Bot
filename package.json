@@ -1,7 +1,7 @@
 {
   "name": "Bot",
   "version": "2.0.0",
-  "description": "",
+  "description": "Bot sviluppato in Node.js che permette la prenotazione e il successivo invio dello screenshot di quest'ultima tramite un bot di telegram",
   "main": "index.js",
   "scripts": {
     "postinstall": "node node_modules/puppeteer/install.js",
@@ -9,9 +9,17 @@
     "stop": "npx pm2 stop Uni-Bot",
     "dev": "NODE_ENV=dev node ."
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LorenzoCodeluppi/Uni-Bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LorenzoCodeluppi/Uni-Bot/issues"
+  },
+  "homepage": "https://github.com/LorenzoCodeluppi/Uni-Bot#readme",
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "SEE LICENSE IN LICENSE file",
   "dependencies": {
     "form-data": "^4.0.0",
     "fs-extra": "^10.0.0",
@@ -19,5 +27,9 @@
     "node-fetch": "^2.6.2",
     "pm2": "^5.1.1",
     "puppeteer": "^10.2.0"
+  },
+  "devDependencies": {
+    "@soluzioni-futura/eslint-config-soluzioni-futura": "^1.4.0",
+    "eslint": "^7.32.0"
   }
 }
