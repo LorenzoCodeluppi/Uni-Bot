@@ -8,8 +8,8 @@ Bot sviluppato in Node.js che permette la prenotazione e il successivo invio del
   * [Prequisiti](#prequisiti)
     + [Node.js](#nodejs)
     + [Requisiti della macchina](#requisiti-della-macchina)
-  * [Configurazione:](#configurazione-)
-    + [BOT_TOKEN](#bot-token)
+  * [Configurazione:](#configurazione)
+    + [Bot token](#bot_token)
     + [Orario](#orario)
     + [Viewport](#viewport)
     + [Config](#config)
@@ -18,15 +18,15 @@ Bot sviluppato in Node.js che permette la prenotazione e il successivo invio del
       - [SP](#sp)
   * [Avvio del bot](#avvio-del-bot)
     + [Installazione dei node modules](#installazione-dei-node-modules)
-  * [Green pass (facoltativo)](#green-pass--facoltativo-)
+  * [Green pass (facoltativo)](#green-pass-facoltativo)
     + [Avvio e terminazione del bot con pm2](#avvio-e-terminazione-del-bot-con-pm2)
-    + [Avvio del bot in modalità _development_](#avvio-del-bot-in-modalit---development-)
+    + [Avvio del bot in modalità _development_](#avvio-del-bot-in-modalità-development)
 
 ## Prequisiti
 
 ### Node.js
 Node.js è un runtime system open source, compatibile con MacOS, linux e windows, per maggiori informazioni
-visitare questo [link](https://it.wikipedia.org/wiki/Node.js).  
+visitare questo [link](https://it.wikipedia.org/wiki/Node.js).
 Per installare Node.js sulla propria macchina si può procedere scaricando il pacchetto dal sito ufficiale ([link](https://nodejs.org/en/))
 oppure tramite NVM(Node Version Manager), al seguente [link](https://github.com/nvm-sh/nvm#installing-and-updating).
 
@@ -35,7 +35,7 @@ oppure tramite NVM(Node Version Manager), al seguente [link](https://github.com/
 
 ### Requisiti della macchina
 Non sono richiesti alcuni requisiti di hardware, ma affinché il Bot prenoti in automatico l'aula desiderata è fortemente consigliato un
-dispositivo che rimanga acceso 24/7.  
+dispositivo che rimanga acceso 24/7.
 Si possono utilizzare dei siti di [Hosting](https://it.wikipedia.org/wiki/Hosting) online,
 come ad esempio [AWS](https://aws.amazon.com/), [Azure](https://azure.microsoft.com/it-it/), [Heroku](https://www.heroku.com/), etc...
 
@@ -57,9 +57,7 @@ come ad esempio [AWS](https://aws.amazon.com/), [Azure](https://azure.microsoft.
     "height": "<HEIGHT>"
   },
   "config": {
-    "headless": "<MODE>",
-    "executablePath": "<EXECUTABLE PATH>",
-    "args": "<EXECUTABLE PATH>"
+    "headless": "<MODE>"
   },
   "users": {
     "user1": {
@@ -105,7 +103,7 @@ Nella chiave `orario` va specificato l'ora e i minuti in cui il bot in automatic
 > **N.B** la chiave deve essere presente nell'oggetto di configurazione e deve essere specificato un valore corretto
 
 ### Viewport
-La proprietà `viewport` va compilata con **un oggetto** nel quale siano presenti le chiavi `width` e `height`, ciascuna di esse deve essere di **tipo numerico**.  
+La proprietà `viewport` va compilata con **un oggetto** nel quale siano presenti le chiavi `width` e `height`, ciascuna di esse deve essere di **tipo numerico**.
 Tramite `width` (larghezza) e `height` (altezza) si andranno a settare le dimensioni della pagina del browser e di conseguenza dello screenshot della prenotazione.
 
 > **N.B** la chiave deve essere presente nell'oggetto di configurazione e deve essere specificato un valore corretto
@@ -115,12 +113,12 @@ La chiave `config` va compilata come **oggetto**.<br/>
 Può essere lasciata come oggetto vuoto `{}` in tal caso si useranno le configurazioni di default.<br/>
 L'unica chiave che consigliamo di specificare è `headless` che assume valori **booleani** (`true` o `false`) e determina la apertura programmatica di un browser in modalità background o meno;<br/>
 La configurazione consigliata per la chiave `config` nel caso in cui si utilizzi un Raspberry py è la seguente:
-```json lines 
+```json lines
 "config": {
- "headless": true, 
+ "headless": true,
  "executablePath": "/usr/bin/chromium-browser",
- "args": ["--no-sandbox", "--disable-setuid-sandbox"] 
-} 
+ "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+}
 ```
 
 > **N.B** la chiave deve essere presente nell'oggetto ma può essere compilata come oggetto vuoto.
@@ -148,7 +146,7 @@ Questo codice viene inserito alla fine dell'url seguendo lo schema sotto riporta
 (https://presenze.unimore.it/spacemr/#?page=s__prsncdd&sp= (CODICE DA COPIARE))<br/>
 Bisogna inserire questo codice in formato **stringa**.<br/>
 Nel caso nell'arco di una giornata sia necessario prenotare più di un'aula, inserisci i codici come segue:<br/>
-```json lines 
+```json lines
 "Monday": ["1", "2"]
 ```
 > **N.B** nel caso un giorno non si voglia prenotare nessuna aula, lasciare il campo `sp` vuoto.
