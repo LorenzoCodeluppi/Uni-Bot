@@ -1,6 +1,6 @@
 {
   "name": "Bot",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Bot sviluppato in Node.js che permette la prenotazione e il successivo invio dello screenshot di quest'ultima tramite un bot di telegram",
   "main": "index.js",
   "scripts": {

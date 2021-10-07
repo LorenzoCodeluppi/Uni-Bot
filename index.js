@@ -8,12 +8,10 @@ const { sendMessage, sendError } = require("./utils/telegram-utils")
 
 const reserve = async({ user, classes }) => {
   let tentativi = 0
-  const { username, password, tg_username } = users[user]?.credentials
-
+  const { username, password, tg_username, tg_chatId } = users[user]?.credentials
   if (!classes.length) {
     return
   }
-
   const browser = await puppeteer.launch(config)
   const page = await browser.newPage()
   await page.setViewport(viewport)
@@ -36,7 +34,7 @@ const reserve = async({ user, classes }) => {
     }
 
     if (tentativi > 2) {
-      await sendError(tg_username, BOT_TOKEN,"Non sono riuscito a prenotare l'aula a causa del login")
+      await sendError(tg_username, tg_chatId, user, BOT_TOKEN, "Non sono riuscito a prenotare l'aula a causa del login")
       throw new Error("Hai superato i tentativi per la password")
     }
 
@@ -49,7 +47,7 @@ const reserve = async({ user, classes }) => {
     const popUpError = await (await (await page.$("#app_messages > div"))?.getProperty("textContent"))?.jsonValue()
 
     if (popUpError) {
-      sendError(tg_username, BOT_TOKEN, popUpError)
+      sendError(tg_username, tg_chatId, user, BOT_TOKEN, popUpError)
       throw new Error(popUpError)
     }
 
@@ -59,7 +57,7 @@ const reserve = async({ user, classes }) => {
     ensureDirSync("./photos/")
     await page.screenshot({ path: `./photos/img-${tg_username}.jpeg`, fullPage: true })
 
-    await sendMessage(tg_username, BOT_TOKEN)
+    await sendMessage(tg_username, tg_chatId, user, BOT_TOKEN)
 
   } catch (err) {
     logger(err)
