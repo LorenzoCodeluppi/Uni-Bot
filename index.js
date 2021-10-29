@@ -6,12 +6,10 @@ const { days, users, BOT_TOKEN, config, viewport, orario, logger } = require("./
 const { sendMessage, sendError } = require("./utils/telegram-utils")
 
 
-const reserve = async({ user, classes }) => {
+const reserve = async(user, classes) => {
   let tentativi = 0
   const { username, password, tg_username, tg_chatId } = users[user]?.credentials
-  if (!classes.length) {
-    return
-  }
+
   const browser = await puppeteer.launch(config)
   const page = await browser.newPage()
   await page.setViewport(viewport)
@@ -75,8 +73,12 @@ const main = async() => {
       break
     }
 
+    if (!users[user][day].length) {
+      return
+    }
+
     for (const schoolClass of users[user][day]) {
-      await reserve({ user, classes: schoolClass })
+      await reserve(user, schoolClass)
     }
   }
 }
