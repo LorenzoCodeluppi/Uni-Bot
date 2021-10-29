@@ -1,3 +1,7 @@
+const net = require("net")
+
+const client = net.createConnection({ port: 8080 })
+
 const { appendFile, ensureFile } = require("fs-extra")
 const days = [
   "Sunday",
@@ -17,6 +21,12 @@ const logger = (log) => {
   appendFile("./log.txt", `[${(new Date()).toString().replace(/ GMT.*$/gm, "")}] ${log} \n`)
 }
 
+const sendStatus = (data) => {
+  if (process.env.NODE_ENV === "dev") {
+    client.write(JSON.stringify(data))
+  }
+}
+
 module.exports = {
   days,
   users,
@@ -24,5 +34,6 @@ module.exports = {
   config,
   viewport,
   orario,
-  logger
+  logger,
+  sendStatus
 }
