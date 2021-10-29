@@ -6,12 +6,10 @@ const { days, users, BOT_TOKEN, config, viewport, orario, logger } = require("./
 const { sendMessage, sendError } = require("./utils/telegram-utils")
 
 
-const reserve = async({ user, classes }) => {
+const reserve = async(user, classes) => {
   let tentativi = 0
   const { username, password, tg_username, tg_chatId } = users[user]?.credentials
-  if (!classes.length) {
-    return
-  }
+
   const browser = await puppeteer.launch(config)
   const page = await browser.newPage()
   await page.setViewport(viewport)
@@ -29,7 +27,7 @@ const reserve = async({ user, classes }) => {
       tentativi += 1
       await page.type("#password", password)
       await page.waitForTimeout(1000) // necessario perchè altrimenti potresti cliccare prima di inserire i dati
-      await page.click("body > div > div > div > div.column.one > form > div:nth-child(4) > button")
+      // await page.click("body > div > div > div > div.column.one > form > div:nth-child(4) > button")
       await page.waitForTimeout(2000)
     }
 
@@ -76,7 +74,7 @@ const main = async() => {
     }
 
     for (const schoolClass of users[user][day]) {
-      await reserve({ user, classes: schoolClass })
+      await reserve(user, schoolClass)
     }
   }
 }
