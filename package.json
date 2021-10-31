@@ -6,8 +6,12 @@
   "scripts": {
     "postinstall": "node node_modules/puppeteer/install.js",
     "start": "pm2 start index.js --name Uni-Bot",
+    "start:dev": "NODE_ENV=dev pm2 start index.js --name Uni-Bot --no-autorestart --wait-ready",
     "stop": "npx pm2 stop Uni-Bot",
-    "dev": "NODE_ENV=dev node ."
+    "delete": "npx pm2 delete Uni-Bot",
+    "dev": "NODE_ENV=dev node .",
+    "restart": "npm run delete && npm run start",
+    "restart:dev": "npm run delete && npm run start:dev"
   },
   "repository": {
     "type": "git",
