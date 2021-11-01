@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "node node_modules/puppeteer/install.js",
     "start": "pm2 start index.js --name Uni-Bot",
-    "start:dev": "NODE_ENV=dev pm2 start index.js --name Uni-Bot --no-autorestart --wait-ready",
+    "start:dev": "NODE_ENV=dev pm2 start index.js --name Uni-Bot --no-autorestart --wait-ready --listen-timeout=300000",
     "stop": "npx pm2 stop Uni-Bot",
     "delete": "npx pm2 delete Uni-Bot",
     "dev": "NODE_ENV=dev node .",
