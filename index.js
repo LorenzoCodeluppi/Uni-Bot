@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer")
 const cron = require("node-cron")
 const { ensureDirSync } = require("fs-extra")
 
-const { days, users, BOT_TOKEN, config, viewport, orario, logger, sendStatus, MAX_ATTEMPTS } = require("./utils/assets")
+const { days, users, BOT_TOKEN, config, viewport, orario, logger, sendStatus, sleep, MAX_ATTEMPTS } = require("./utils/assets")
 const { sendMessage, sendError } = require("./utils/telegram-utils")
 
 
@@ -14,7 +14,7 @@ const reserve = async(user, classes, totalUsers, userNumber) => {
   const page = await browser.newPage()
   await page.setViewport(viewport)
 
-  sendStatus(user, false, "Bot avviato correttamente...", totalUsers, 1 + (userNumber * MAX_ATTEMPTS))
+  sendStatus(user, false, "Utente caricato correttamente...", totalUsers, 1 + (userNumber * MAX_ATTEMPTS))
 
   await Promise.all([
     page.goto(`https://presenze.unimore.it/spacemr/#?page=s__prsncdd&sp=${classes}`),
@@ -29,7 +29,7 @@ const reserve = async(user, classes, totalUsers, userNumber) => {
     sendStatus(user, false, "Avvio procedure di login al portale di ESSE3...", totalUsers, 2 + (userNumber * MAX_ATTEMPTS))
     while (tentativi <= 2 && await page.$("body > div > div > div > div.column.one > form > div:nth-child(4) > button")) {
       tentativi += 1
-
+      await page.waitForTimeout(500)
       sendStatus(user, false, `Tentativo di login n° ${tentativi}...`, totalUsers, 3 + (userNumber * MAX_ATTEMPTS))
       await page.type("#password", password)
       await page.waitForTimeout(1000) // necessario perchè altrimenti potresti cliccare prima di inserire i dati
@@ -53,7 +53,7 @@ const reserve = async(user, classes, totalUsers, userNumber) => {
     const popUpError = await (await (await page.$("#app_messages > div"))?.getProperty("textContent"))?.jsonValue()
 
     if (popUpError) {
-      sendStatus(user, true, "Impossibile prenotare l'aula richiesta, terminazione...", totalUsers, 7 + (userNumber * MAX_ATTEMPTS))
+      sendStatus(user, true, "Impossibile prenotare l'aula richiesta", totalUsers, 7 + (userNumber * MAX_ATTEMPTS))
       sendError(tg_username, tg_chatId, user, BOT_TOKEN, popUpError)
       throw new Error(popUpError)
     }
@@ -90,6 +90,7 @@ const main = async() => {
     }
 
     if (!users[user][day].length) {
+      await sleep(500)
       sendStatus(user, false, "Non ci sono aule da prenotare questo giorno", totalUsers.length, 7 + (totalUsers.indexOf(user) * MAX_ATTEMPTS), false)
     }
 
@@ -97,6 +98,7 @@ const main = async() => {
       await reserve(user, schoolClass, totalUsers.length, totalUsers.indexOf(user))
     }
   }
+  await sleep(500)
   sendStatus(null, false, "Terminazione del bot..", totalUsers.length, totalUsers.length * MAX_ATTEMPTS)
 }
 

@@ -26,8 +26,12 @@ const logger = (log) => {
 
 const sendStatus = (user, error, sentence, totalUsers, progress, isAula = true) => {
   if (process.env.NODE_ENV === "dev") {
-    client.write(JSON.stringify({ user, error, sentence, progress: Math.ceil((100 * progress) / (totalUsers * MAX_ATTEMPTS)), isAula }))
+    client.write(JSON.stringify({ user, isAula, error, sentence, progress: Math.ceil((100 * progress) / (totalUsers * MAX_ATTEMPTS)) }))
   }
+}
+
+const sleep = (ms) =>  {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 module.exports = {
@@ -39,5 +43,6 @@ module.exports = {
   orario,
   logger,
   sendStatus,
+  sleep,
   MAX_ATTEMPTS
 }
