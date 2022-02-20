@@ -27,7 +27,7 @@ const reserve = async(user, classes) => {
       tentativi += 1
       await page.type("#password", password)
       await page.waitForTimeout(1000) // necessario perchè altrimenti potresti cliccare prima di inserire i dati
-      await page.click("body > div > div > div > div.column.one > form > div:nth-child(4) > button")
+      // await page.click("body > div > div > div > div.column.one > form > div:nth-child(4) > button")
       await page.waitForTimeout(2000)
     }
 
